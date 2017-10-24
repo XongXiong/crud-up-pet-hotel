@@ -1,0 +1,25 @@
+{
+  "name": "crud-up-pet-hotel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XongXiong/crud-up-pet-hotel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XongXiong/crud-up-pet-hotel/issues"
+  },
+  "homepage": "https://github.com/XongXiong/crud-up-pet-hotel#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "pg": "^7.3.0"
+  }
+}
