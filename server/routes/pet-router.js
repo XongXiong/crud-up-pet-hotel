@@ -27,13 +27,14 @@ router.post('/owner',function(req,res){
           console.log(queryText);
           res.sendStatus(500);
         } else {
-          console.log('New owner added';
+          console.log('New owner added');
           res.sendStatus(201);
         }
       });
     }
   });
 });
+
 // POST /pet
 
 // PUT /in/:id
