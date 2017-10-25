@@ -136,7 +136,7 @@ pool.connect(function (errorConnectingToDb, db, done){
     // We connected to the databse. Pool-1
     var queryText = 'UPDATE "pets" SET "name" = $1, "breed" = $2, "color" = $3, "owner_id" = $4;';
     db.query(queryText, [pet.name, pet.breed, pet.color, pet.owner_id], function (errorMakingQuery, result){
-      (done);   // pool +1
+      done();   // pool +1
       if(errorMakingQuery) {
         console.log('Error making query', errorMakingQuery);
         res.sendStatus(500);

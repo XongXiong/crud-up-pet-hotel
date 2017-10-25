@@ -3,10 +3,11 @@ $(document).ready(main);
 function main() {
     console.log('JS/jQ working');
     getPets();
-    postPets();
+    $('#sendPet').on('click', postPets);
     getOwner();
     $('#tBody').on('click','.deletebtn', deleteData);
     $('#tBody').on('click','.updatebtn', updateData);
+    $('#updateAddBtn').on('click', '#updatePet', sendUpdated)
 }
 
 var petid = 0;
@@ -14,7 +15,7 @@ var petToSend = {
     name: $('#petName').val(),
     breed: $('#breed').val(),
     color: $('#color').val(),
-    owner_id: $
+    owner_id: $('#ownerSelect').val()
 }
 
 function getPets() {
@@ -23,7 +24,6 @@ function getPets() {
         url: '/pet'
     }) .done(function (response) {
         appendPetData(response);
-        console.log(response);
     }) .fail(function(error) {
         console.log('We ran into a problem', error);
     })
@@ -49,10 +49,11 @@ function appendOwnerData(response) {
     $('#ownerSelect').empty();
     for (var i = 0; i < response.length; i += 1) {
         var data = response[i];
-        console.log('looking at data', data);
         var $option = $('<option></option>');
         $option.append(data.first_name);
         $option.append(data.last_name);
+        console.log(data.id);
+        $option.append(data.id);
         $('#ownerSelect').append($option);
     }
 }
@@ -62,17 +63,17 @@ function appendPetData(response) {
     $('#tBody').empty();
     for (var i = 0; i < response.length; i += 1) {
         var data = response[i];
-        console.log('looking at data',data);
         var $tr = $('<tr></tr>');
         $tr.append('<td>' + data.first_name + '</td>');
-        $tr.append('<td>' + data.name + '</td>');
+        $tr.append('<td >' + data.name + '</td>');
         $tr.append('<td>' + data.breed + '</td>');
         $tr.append('<td>' + data.color + '</td>');
-        $tr.append('<td><button type="button" class="updatebtn">' + data.update + '</button></td>');
-        $tr.append('<td><button type="button" class="deletebtn">' + data.delete + '</button></td>');
-        $tr.append('<td><button type="button" class="checkbtn">' + data.checkStatus + '</button></td>');
-        $tr.data('pet', data[i]);
+        $tr.append('<td><button type="button" class="updatebtn" data-id="' + data.id + '">' + data.update + '</button></td>');
+        $tr.append('<td><button type="button" class="deletebtn" data-id="' + data.id + '">' + data.delete + '</button></td>');
+        $tr.append('<td><button type="button" class="checkbtn" data-id="' + data.id + '">' + data.checkStatus + '</button></td>');
+        $tr.data('pet', data);
         $tr.data('petid', data.id);
+        $tr.data('owner_id', data.owner_id);
         $('#tBody').append($tr);
     }
 }
@@ -97,7 +98,7 @@ function refreshPets() {
     }).done(function( response ){
         console.log(response);
         var petList = response;
-        console.log('Before append:', petList);
+        // console.log('Before append:', petList);
         appendPetData(petList);
     }).fail(function (error) {
         alert('Something went wrong');
@@ -119,13 +120,32 @@ function deleteData(){
 }//end delete
 
 function updateData() {
+    $('#sendPet').remove();
+    $('#updateAddBtn').append('<button type="summit" class="btn-primary btn-sm" id="updatePet">Update Pet</button>');
+    pet = $(this).closest('tr').data('pet');
+    $('#petName').val(pet.name);
+    $('#breed').val(pet.breed);
+    $('#color').val(pet.color);
+}
+
+function sendUpdated(updatedPet) {
     petid = $(this).data('id');
-    console.log('update!');
+
+    updatedPet = {
+        name: $('#petName').val(),
+        breed: $('#breed').val(),
+        color: $('#color').val(),
+    }
+
+    console.log(updatedPet);
     $.ajax({
         method: 'PUT',
         url: '/pet/' + petid,
-        data: petToSend
+        data: updatedPet
     }).done(function (response) {
-        console.log('update!');
+        console.log(response);
+        getPets(response);
+    }).fail(function (error) {
+        console.log('Error on updating data');
     })
 }
