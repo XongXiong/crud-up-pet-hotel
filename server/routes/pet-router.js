@@ -27,7 +27,7 @@ router.post('/owner',function(req,res){
           console.log(queryText);
           res.sendStatus(500);
         } else {
-          console.log('New todo added:',newTodo);
+          console.log('New owner added';
           res.sendStatus(201);
         }
       });
