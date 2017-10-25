@@ -119,7 +119,7 @@ router.post('/',function(req,res){
 // PUT /in/:id
 
 // PUT /out/:id
-
+router.put()
 // PUT /pet/:id to update Pets Info
 router.put('/:id', function (req, res){
   console.log(req.body);
