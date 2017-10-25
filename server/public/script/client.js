@@ -6,6 +6,7 @@ function main() {
     postPets();
     getOwner();
     $('#tBody').on('click','.deletebtn', deleteData);
+    $('#form').on('submit', postPets);
 
 }
 
@@ -42,7 +43,7 @@ function appendOwnerData(response) {
     for (var i = 0; i < response.length; i += 1) {
         var data = response[i];
         console.log('looking at data', data);
-        var $option = $('<option></option>');
+        var $option = $('<option value="' + data.id + '"></option>');
         $option.append(data.first_name);
         $option.append(data.last_name);
         $('#ownerSelect').append($option);
@@ -67,7 +68,21 @@ function appendPetData(response) {
     }
 }
 
-function postPets(petToSend) {
+function postPets(event) {
+    event.preventDefault();
+    var owner = $('#ownerSelect').val();
+    var petName = $('#petName').val();
+    var petBreed = $('#breed').val();
+    var petColor = $('#color').val();
+
+   var petToSend ={
+       owner: owner,
+       name: petName,
+       breed: petBreed,
+       color: petColor
+   }
+   console.log('postPets',$('#ownerSelect').val());
+   
     $.ajax({
         method: 'POST',
         url: '/pet',
