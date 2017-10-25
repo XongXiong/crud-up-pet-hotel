@@ -58,7 +58,35 @@ router.post('/owner',function(req,res){
 });
 
 // POST /pet
+// {
+//   name:
+//   breed:
+//   color:
+//   owner_id:
+// }
 
+router.post('/pet',function(req,res){
+  var pet = req.body;
+  pool.connect(function(errorConnectingToDb,db,done){
+    if(errorConnectingToDb){
+      console.log('Error connecting to DB');
+      res.sendStatus(500);
+    } else {
+      var queryText = 'INSERT INTO "pets" ("name","breed","color","owner_id") VALUES ($1, $2, $3, $4);';
+      db.query(queryText,[pet.name,pet.breed,pet.color,pet.owner_id],function(errorQueryingDb,result) {
+        done();
+        if (errorQueryingDb) {
+          console.log('Error in POST route querying database with');
+          console.log(queryText);
+          res.sendStatus(500);
+        } else {
+          console.log('New pet added');
+          res.sendStatus(201);
+        }
+      });
+    }
+  });
+});
 // PUT /in/:id
 
 // PUT /out/:id
