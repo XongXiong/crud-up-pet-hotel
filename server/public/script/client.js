@@ -36,6 +36,7 @@ function newOwner(event){
     .done(function(response){
         console.log('New owner posted');
         $('#ownerForm input').val('');
+        getOwner();
     })
     .fail(function(error){
         alert('Error POSTing new owner:',error);
