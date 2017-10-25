@@ -17,3 +17,5 @@ var pool = require('../modules/pool.js');
 // PUT /pet/:id
 
 // DELETE /:id
+
+module.exports = router;
