@@ -57,7 +57,7 @@ router.post('/owner',function(req,res){
   });
 });
 
-// POST /pet
+// POST /
 // {
 //   name:
 //   breed:
@@ -65,7 +65,7 @@ router.post('/owner',function(req,res){
 //   owner_id:
 // }
 
-router.post('/pet',function(req,res){
+router.post('/',function(req,res){
   var pet = req.body;
   pool.connect(function(errorConnectingToDb,db,done){
     if(errorConnectingToDb){
