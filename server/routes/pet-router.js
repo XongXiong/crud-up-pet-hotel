@@ -150,5 +150,44 @@ pool.connect(function (errorConnectingToDb, db, done){
 
 
 // DELETE /:id
-
+router.delete('/:id',function(req,res){
+  var petId = req.params.id;
+  pool.connect(function(errorConnectingToDb,db,done){
+    if(errorConnectingToDb){
+      console.log('Error connecting to DB');
+      res.sendStatus(500);
+    } else {
+      var queryText = 'DELETE FROM "visits" WHERE "pet_id" = $1;';
+      db.query(queryText,[petId],function(errorQueryingDb,result) {
+        done();
+        if (errorQueryingDb) {
+          console.log('Error in DELETE route querying database with');
+          console.log(queryText);
+          res.sendStatus(500);
+        } else {
+          console.log('Pet',petId,'visits have been deleted');
+          pool.connect(function(errorConnectingToDb,db,done){
+            if(errorConnectingToDb){
+              console.log('Error connecting to DB');
+              res.sendStatus(500);
+            } else {
+              var queryText = 'DELETE FROM "pets" WHERE "id" = $1;';
+              db.query(queryText,[petId],function(errorQueryingDb,result) {
+                done();
+                if (errorQueryingDb) {
+                  console.log('Error in DELETE route querying database with');
+                  console.log(queryText);
+                  res.sendStatus(500);
+                } else {
+                  console.log('Pet with id',petId,'has been deleted');
+                  res.sendStatus(200);
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+});
 module.exports = router;
