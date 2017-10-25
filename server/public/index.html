@@ -11,14 +11,77 @@
         <script src="script/client.js"></script>
     </head>
     <body>
-       
+    <div class="jumbotron">
         <div class="container padding-top-10">
                 <div class="panel panel-default">
-                    <div class="page-header">CRUD UP PET HOTEL</div>
-                        <div class="jumbotron">
-                            <h1>Owner Registration</h1>
-                                <label for="name" ></label>
-                                <input type="text">
+                    <div class="panel-heading">CRUD UP PET HOTEL</div>
+                        <div class="panel-body">
+                            <form>
+                                <label for="firstName" class="control-label">Name</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                    <input type="text" class="form-control" id="firstName" placeholder="First"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Last" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <label for="ownerName" class="control-label">Pets</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Owner Name <input type="text" class="form-control selectpicker" id="ownerName">
+                                    </div>
+                                    <div class="col-md-4">
+                                        Pet Name <input type="text" class="form-control" id="petName" placeholder="Pet Name" />
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        Breed<input type="text" class="form-control" id="breed" placeholder="Breed" />
+                                    
+                                    </div>
+                                    <div class="col-md-4">
+                                        Breed
+                                        <input type="text" class="form-control" id="color" placeholder="Color" />
+                                    
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="summit" class="btn-primary btn-sm">Register</button>
+                                    
+                                    </div>
+
+                                </div>
+
+                                <table class="table table-borthered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-2">Owner</th>
+                                            <th class="col-md-2">Pet</th>
+                                            <th class="col-md-2">Breed</th>
+                                            <th class="col-md-2">Color</th>
+                                            <th class="col-md-2">Update</th>
+                                            <th class="col-md-2">Delete</th>
+                                            <th class="col-md-2">Check In/Out</th>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#">Laronda Baye</a></td>
+
+                                        </tr>
+
+                                    </thead>    
+
+
+
+
+                                </table>
+
+
+                            </form>
+                        </div>
+                       </div> 
+                    </div>       
+                                
 
             </div>
         </div>
