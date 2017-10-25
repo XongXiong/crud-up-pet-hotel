@@ -1,96 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>CRUD UP PET HOTEL</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="style/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap-theme.css">
-        <script src="vendors/jquery.js"></script>
-        <script src="script/client.js"></script>
-    </head>
-    <body>
+
+<head>
+    <title>CRUD UP PET HOTEL</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap-theme.css">
+    <script src="vendors/jquery.js"></script>
+    <script src="script/client.js"></script>
+</head>
+
+<body>
     <div class="jumbotron">
         <div class="container padding-top-10">
-                <div class="panel panel-default">
-                    <div class="panel-heading">CRUD UP PET HOTEL</div>
-                        <div class="panel-body">
-                            <form>
-                                <label for="firstName" class="control-label">Name</label>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                    <input type="text" class="form-control" id="firstName" placeholder="First"/>
-                                    </div>
-                                    <div class="col-md-4">
-                                    <input type="text" class="form-control" id="lastName" placeholder="Last" />
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button type="summit" class="btn-primary btn-sm">Register</button>
-                                    
-                                    </div>
-                                </div>
-                                <div class="row">
-                                <label for="ownerName" class="control-label">Pets</label>
-                                </div>
-                                <div class="row">
-                                    <select name="owner" id="ownerSelect">
-                                    <option value="test">Test</option>
-                                    </select>
-                                    <div class="col-md-3">
-                                        Pet Name <input type="text" class="form-control" id="petName" placeholder="Pet Name" />
-                                         Breed<input type="text" class="form-control" id="breed" placeholder="Breed" />
-                                        
-                                    </div>
-                                    
-                                    <div class="col-md-3">
-                                        Breed
-                                        <input type="text" class="form-control" id="color" placeholder="Color" />
-                                    
-                                    </div>
-                                    <div class="row">
-                                    <div class="col-md-3">
-                                        <button type="summit" class="btn-primary btn-sm">Add Pet</button>
-                                    
-                                    </div>
-                                    </div>
-                                </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>CRUD UP PET HOTEL</h1>
+                </div>
+                <div class="panel-body">
+                    <form id="ownerForm">
+                        <label for="firstName" class="control-label">Name</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="firstName" placeholder="First" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="lastName" placeholder="Last" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn-primary btn-sm">Register</button>
 
-                                <table class="table table-borthered table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-md-2">Owner</th>
-                                            <th class="col-md-2">Pet</th>
-                                            <th class="col-md-2">Breed</th>
-                                            <th class="col-md-2">Color</th>
-                                            <th class="col-md-2">Update</th>
-                                            <th class="col-md-2">Delete</th>
-                                            <th class="col-md-2">Check In/Out</th>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">Laronda Baye</a></td>
+                            </div>
+                    </form>
+                    </div>
+                    <form id="form">
+                    <div class="row">
+                        <label for="ownerName" class="control-label">Pets</label>
+                    </div>
+                    <div class="row">
+                        <select name="owner" id="ownerSelect">
+                            <option value="test">Test</option>
+                        </select>
+                        <div class="col-md-3">
+                            Pet Name
+                            <input type="text" class="form-control" id="petName" placeholder="Pet Name" /> Breed
+                            <input type="text" class="form-control" id="breed" placeholder="Breed" />
 
-                                        </tr>
-
-                                    </thead>    
-                                    <tbody id="tBody">
-
-                                    </tbody>
-
-
-
-                                </table>
-
-
-                            </form>
                         </div>
-                       </div> 
-                    </div>       
-                                
 
+                        <div class="col-md-3">
+                            Breed
+                            <input type="text" class="form-control" id="color" placeholder="Color" />
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="submit" class="btn-primary btn-sm" id="addPetBtn">Add Pet</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    <table class="table table-borthered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">Owner</th>
+                                <th class="col-md-2">Pet</th>
+                                <th class="col-md-2">Breed</th>
+                                <th class="col-md-2">Color</th>
+                                <th class="col-md-2">Update</th>
+                                <th class="col-md-2">Delete</th>
+                                <th class="col-md-2">Check In/Out</th>
+                            </tr>
+                            <tr>
+
+
+                            </tr>
+
+                        </thead>
+                        <tbody id="tBody">
+
+                        </tbody>
+
+
+
+                    </table>
+
+
+
+                </div>
             </div>
         </div>
 
-        </div>
-    </body>
+
+    </div>
+    </div>
+
+    </div>
+</body>
+
 </html>
