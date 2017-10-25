@@ -119,7 +119,29 @@ router.post('/',function(req,res){
 // PUT /in/:id
 
 // PUT /out/:id
-router.put()
+router.put('/out/:id',function(req,res){
+  console.log(req.params);
+  var visitId = req.params.id;
+// Attempt to connect to the database
+pool.connect(function (errorConnectingToDb, db, done){
+  if(errorConnectingToDb) {
+    console.log('Error connecting', errorConnectingToDb);
+    res.sendStatus(500);
+  } else {
+    var queryText = 'UPDATE "visits" SET "check-out_date" = CURRENT_DATE WHERE "id" = $1;';
+    db.query(queryText, [visitId], function (errorMakingQuery, result){
+      done();
+      if(errorMakingQuery) {
+        console.log('Error making query', errorMakingQuery);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+        console.log ('Visit #',visitId,' has been checked out.');
+      }
+    }); // End Query
+  }
+}); // End Pool
+});
 // PUT /pet/:id to update Pets Info
 router.put('/:id', function (req, res){
   console.log(req.body);
