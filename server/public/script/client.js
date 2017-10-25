@@ -3,6 +3,7 @@ $(document).ready(main);
 function main() {
     console.log('JS/jQ working');
     getPets();
+    postPets();
 }
 
 function getPets() {
@@ -32,4 +33,31 @@ function appendPetData(response) {
         $tr.append('<td><button type="button" class="checkbtn">' + data.checkStatus + '</button></td>');
         $('#tBody').append($tr);
     }
+}
+
+function postPets(petToSend) {
+    $.ajax({
+        method: 'POST',
+        url: '/pet',
+        data: petToSend
+    }).done(function (response){
+        console.log(response);
+        refreshPets();
+    }).fail(function (error){
+        alert('Somepet went wrong');
+    });
+}
+
+function refreshPets() {
+    $.ajax({
+        method: 'GET',
+        url: '/pet',
+    }).done(function( response ){
+        console.log(response);
+        var petList = response;
+        console.log('Before append:', petList);
+        appendPetData(petList);
+    }).fail(function (error) {
+        alert('Something went wrong');
+    });
 }
