@@ -3,8 +3,8 @@ $(document).ready(main);
 function main() {
     console.log('JS/jQ working');
     getPets();
-    postPets();
     getOwner();
+    $('#ownerForm').on('submit',newOwner);
     $('#tBody').on('click','.deletebtn', deleteData);
 
 }
@@ -21,6 +21,26 @@ function getPets() {
     })
 }
 
+function newOwner(event){
+    event.preventDefault();
+    var newOwner = {
+        firstName: $('#firstName').val(),
+        lastName: $('#lastName').val()
+    };
+    console.log('Submitting new owner:',newOwner);
+    $.ajax({
+        method: 'POST',
+        url: '/pet/owner',
+        data: newOwner
+    })
+    .done(function(response){
+        console.log('New owner posted');
+        $('#ownerForm input').val('');
+    })
+    .fail(function(error){
+        alert('Error POSTing new owner:',error);
+    });
+}
 
 function getOwner() {
     $.ajax({
