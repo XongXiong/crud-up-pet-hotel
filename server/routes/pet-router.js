@@ -116,7 +116,33 @@ router.post('/',function(req,res){
     }
   });
 });
-// PUT /in/:id
+
+// POST /in/:id  to check in pets
+router.post('/:id', function(req, res){
+  var pet = req.body;
+  var petId = req.params.id;
+  console.log('req.body', petId);
+  // Attempt to connect to the database
+  pool.connect(function (errorConnectingToDb, db, done){
+    if(errorConnectingToDb) {
+      console.log('Error connecting', errorConnectingToDb);
+      res.sendStatus(500);
+    }else {
+      var queryText = 'INSERT INTO "visits" ("check-in_date", "pet_id") VALUES (CURRENT_DATE, $1);';
+      db.query(queryText, [pet.pet_id], function (errorConnectingToDb, result){
+        done();
+        if (errorConnectingToDb){
+          console.log('Error making query', errorConnectingToDb);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      }); // End Query
+    }
+  }); // End Pool
+})
+
+
 
 // PUT /out/:id
 router.put('/out/:id',function(req,res){
