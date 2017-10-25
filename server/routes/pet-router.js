@@ -116,9 +116,59 @@ router.post('/',function(req,res){
     }
   });
 });
-// PUT /in/:id
+
+// POST /in/:id  to check in pets
+router.post('/in/:id', function(req, res){
+  var pet = req.body;
+  var petId = req.params.id;
+  console.log('req.body', petId);
+  // Attempt to connect to the database
+  pool.connect(function (errorConnectingToDb, db, done){
+    if(errorConnectingToDb) {
+      console.log('Error connecting', errorConnectingToDb);
+      res.sendStatus(500);
+    }else {
+      var queryText = 'INSERT INTO "visits" ("check-in_date", "pet_id") VALUES (CURRENT_DATE, $1);';
+      db.query(queryText, [petId], function (errorConnectingToDb, result){
+        done();
+        if (errorConnectingToDb){
+          console.log('Error making query', errorConnectingToDb);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201);
+        }
+      }); // End Query
+    }
+  }); // End Pool
+})
+
+
 
 // PUT /out/:id
+router.put('/out/:id',function(req,res){
+  console.log(req.params);
+  var visitId = req.params.id;
+// Attempt to connect to the database
+pool.connect(function (errorConnectingToDb, db, done){
+  if(errorConnectingToDb) {
+    console.log('Error connecting', errorConnectingToDb);
+    res.sendStatus(500);
+  } else {
+    var queryText = 'UPDATE "visits" SET "check-out_date" = CURRENT_DATE WHERE "id" = $1;';
+    db.query(queryText, [visitId], function (errorMakingQuery, result){
+      done();
+      if(errorMakingQuery) {
+        console.log('Error making query', errorMakingQuery);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+        console.log ('Visit #',visitId,' has been checked out.');
+      }
+    }); // End Query
+  }
+}); // End Pool
+});
+
 
 // PUT /pet/:id to update Pets Info
 router.put('/:id', function (req, res){
@@ -134,9 +184,9 @@ pool.connect(function (errorConnectingToDb, db, done){
     res.sendStatus(500);
   } else {
     // We connected to the databse. Pool-1
-    var queryText = 'UPDATE "pets" SET "name" = $1, "breed" = $2, "color" = $3, "owner_id" = $4;';
-    db.query(queryText, [pet.name, pet.breed, pet.color, pet.owner_id], function (errorMakingQuery, result){
-      done();   // pool +1
+    var queryText = 'UPDATE "pets" SET "name" = $1, "breed" = $2, "color" = $3, "owner_id" = $4 WHERE "id" = $5;';
+    db.query(queryText, [pet.name, pet.breed, pet.color, pet.owner_id,petId], function (errorMakingQuery, result){
+      (done);   // pool +1
       if(errorMakingQuery) {
         console.log('Error making query', errorMakingQuery);
         res.sendStatus(500);

@@ -5,18 +5,14 @@ function main() {
     getPets();
     $('#sendPet').on('click', postPets);
     getOwner();
+    $('#ownerForm').on('submit',newOwner);
     $('#tBody').on('click','.deletebtn', deleteData);
     $('#tBody').on('click','.updatebtn', updateData);
     $('#updateAddBtn').on('click', '#updatePet', sendUpdated)
 }
 
 var petid = 0;
-var petToSend = {
-    name: $('#petName').val(),
-    breed: $('#breed').val(),
-    color: $('#color').val(),
-    owner_id: $('#ownerSelect').val()
-}
+
 
 function getPets() {
     $.ajax({
@@ -29,6 +25,27 @@ function getPets() {
     })
 }
 
+function newOwner(event){
+    event.preventDefault();
+    var newOwner = {
+        firstName: $('#firstName').val(),
+        lastName: $('#lastName').val()
+    };
+    console.log('Submitting new owner:',newOwner);
+    $.ajax({
+        method: 'POST',
+        url: '/pet/owner',
+        data: newOwner
+    })
+    .done(function(response){
+        console.log('New owner posted');
+        $('#ownerForm input').val('');
+        getOwner();
+    })
+    .fail(function(error){
+        alert('Error POSTing new owner:',error);
+    });
+}
 
 function getOwner() {
     $.ajax({
@@ -68,17 +85,23 @@ function appendPetData(response) {
         $tr.append('<td >' + data.name + '</td>');
         $tr.append('<td>' + data.breed + '</td>');
         $tr.append('<td>' + data.color + '</td>');
-        $tr.append('<td><button type="button" class="updatebtn" data-id="' + data.id + '">' + data.update + '</button></td>');
-        $tr.append('<td><button type="button" class="deletebtn" data-id="' + data.id + '">' + data.delete + '</button></td>');
-        $tr.append('<td><button type="button" class="checkbtn" data-id="' + data.id + '">' + data.checkStatus + '</button></td>');
         $tr.data('pet', data);
         $tr.data('petid', data.id);
         $tr.data('owner_id', data.owner_id);
+        $tr.append('<td><button type="button" class="updatebtn btn-primary btn-sm" data-id="' + data.id + '">GO</button></td>');
+        $tr.append('<td><button type="button" class="deletebtn btn-primary btn-sm" data-id="' + data.id + '">GO</button></td>');
+        $tr.append('<td><button type="button" class="checkbtn btn-primary btn-sm" data-id="' + data.id + '">IN/OUT</button></td>');
         $('#tBody').append($tr);
     }
 }
 
-function postPets(petToSend) {
+function postPets() {
+    var petToSend = {
+        name: $('#petName').val(),
+        breed: $('#breed').val(),
+        color: $('#color').val(),
+        owner_id: $('#ownerSelect').val()
+    }
     $.ajax({
         method: 'POST',
         url: '/pet',
@@ -105,6 +128,7 @@ function refreshPets() {
     });
 }
 
+// DELETE an existing pet
 function deleteData(){
     console.log(' delete things and stuff');
     petid = $(this).data('id');
@@ -136,7 +160,7 @@ function sendUpdated(updatedPet) {
         breed: $('#breed').val(),
         color: $('#color').val(),
     }
-
+console.log(petid);
     console.log(updatedPet);
     $.ajax({
         method: 'PUT',
