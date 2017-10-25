@@ -86,7 +86,7 @@ router.post('/owner',function(req,res){
   });
 });
 
-// POST /pet
+// POST /
 // {
 //   name:
 //   breed:
