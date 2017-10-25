@@ -129,7 +129,7 @@ router.post('/in/:id', function(req, res){
       res.sendStatus(500);
     }else {
       var queryText = 'INSERT INTO "visits" ("check-in_date", "pet_id") VALUES (CURRENT_DATE, $1);';
-      db.query(queryText, [pet.pet_id], function (errorConnectingToDb, result){
+      db.query(queryText, [petId], function (errorConnectingToDb, result){
         done();
         if (errorConnectingToDb){
           console.log('Error making query', errorConnectingToDb);
