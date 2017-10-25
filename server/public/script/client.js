@@ -59,9 +59,9 @@ function appendPetData(response) {
         $tr.append('<td>' + data.name + '</td>');
         $tr.append('<td>' + data.breed + '</td>');
         $tr.append('<td>' + data.color + '</td>');
-        $tr.append('<td><button type="button" class="updatebtn">' + data.update + '</button></td>');
-        $tr.append('<td><button type="button" class="deletebtn">' + data.delete + '</button></td>');
-        $tr.append('<td><button type="button" class="checkbtn">' + data.checkStatus + '</button></td>');
+        $tr.append('<td><button type="button" class="updatebtn btn-primary btn-sm" data-id="' + data.id + '">GO</button></td>');
+        $tr.append('<td><button type="button" class="deletebtn btn-primary btn-sm" data-id="' + data.id + '">GO</button></td>');
+        $tr.append('<td><button type="button" class="checkbtn btn-primary btn-sm" data-id="' + data.id + '">IN/OUT</button></td>');
         $('#tBody').append($tr);
     }
 }
