@@ -4,6 +4,7 @@ function main() {
     console.log('JS/jQ working');
     getPets();
     postPets();
+    getOwner();
 }
 
 function getPets() {
@@ -17,6 +18,35 @@ function getPets() {
         console.log('We ran into a problem', error);
     })
 }
+
+
+function getOwner() {
+    $.ajax({
+        method: 'GET',
+        url: '/pet/owner'
+    }).done(function (response) {
+        appendOwnerData(response);
+        console.log(response);
+    }).fail(function (error) {
+        console.log('We ran into a problem', error);
+    })
+}
+
+
+
+
+function appendOwnerData(response) {
+    $('#ownerSelect').empty();
+    for (var i = 0; i < response.length; i += 1) {
+        var data = response[i];
+        console.log('looking at data', data);
+        var $option = $('<option></option>');
+        $option.append(data.first_name);
+        $option.append(data.last_name);
+        $('#ownerSelect').append($option);
+    }
+}
+
 
 function appendPetData(response) {
     $('#tBody').empty();
