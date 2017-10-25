@@ -118,7 +118,7 @@ router.post('/',function(req,res){
 });
 
 // POST /in/:id  to check in pets
-router.post('/:id', function(req, res){
+router.post('/in/:id', function(req, res){
   var pet = req.body;
   var petId = req.params.id;
   console.log('req.body', petId);
@@ -168,6 +168,8 @@ pool.connect(function (errorConnectingToDb, db, done){
   }
 }); // End Pool
 });
+
+
 // PUT /pet/:id to update Pets Info
 router.put('/:id', function (req, res){
   console.log(req.body);
