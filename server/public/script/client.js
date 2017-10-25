@@ -9,6 +9,8 @@ function main() {
     $('#tBody').on('click','.deletebtn', deleteData);
     $('#tBody').on('click','.updatebtn', updateData);
     $('#updateAddBtn').on('click', '#updatePet', sendUpdated)
+    $('#form').on('submit', postPets);
+
 }
 
 var petid = 0;
@@ -66,7 +68,8 @@ function appendOwnerData(response) {
     $('#ownerSelect').empty();
     for (var i = 0; i < response.length; i += 1) {
         var data = response[i];
-        var $option = $('<option></option>');
+        console.log('looking at data', data);
+        var $option = $('<option value="' + data.id + '"></option>');
         $option.append(data.first_name);
         $option.append(data.last_name);
         console.log(data.id);
@@ -95,13 +98,21 @@ function appendPetData(response) {
     }
 }
 
-function postPets() {
-    var petToSend = {
-        name: $('#petName').val(),
-        breed: $('#breed').val(),
-        color: $('#color').val(),
-        owner_id: $('#ownerSelect').val()
-    }
+function postPets(event) {
+    event.preventDefault();
+    var owner = $('#ownerSelect').val();
+    var petName = $('#petName').val();
+    var petBreed = $('#breed').val();
+    var petColor = $('#color').val();
+
+   var petToSend ={
+       owner: owner,
+       name: petName,
+       breed: petBreed,
+       color: petColor
+   }
+   console.log('postPets',$('#ownerSelect').val());
+   
     $.ajax({
         method: 'POST',
         url: '/pet',
