@@ -5,6 +5,7 @@ function main() {
     getPets();
     postPets();
     getOwner();
+    $('#tBody').on('click','.deletebtn', deleteData);
 }
 
 function getPets() {
@@ -90,4 +91,8 @@ function refreshPets() {
     }).fail(function (error) {
         alert('Something went wrong');
     });
+}
+
+function deleteData(){
+    console.log('things and stuff');
 }
