@@ -6,6 +6,7 @@ function main() {
     postPets();
     getOwner();
     $('#tBody').on('click','.deletebtn', deleteData);
+
 }
 
 function getPets() {
@@ -93,6 +94,17 @@ function refreshPets() {
     });
 }
 
+// DELETE an existing pet
 function deleteData(){
-    console.log('things and stuff');
+    var petId = $(this).data('id');
+    console.log('Delete pet with id', petId);
+    $.ajax({
+        method: 'DELETE',
+        url: '/pet/' + petId      
+    }).done (function (response){
+        console.log(response);
+        refreshPets();
+    }).fail( function (error){
+        alert('Somepet went wrong', error);
+    });
 }
