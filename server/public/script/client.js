@@ -6,6 +6,15 @@ function main() {
     postPets();
     getOwner();
     $('#tBody').on('click','.deletebtn', deleteData);
+    $('#tBody').on('click','.updatebtn', updateData);
+}
+
+var petid = 0;
+var petToSend = {
+    name: $('#petName').val(),
+    breed: $('#breed').val(),
+    color: $('#color').val(),
+    owner_id: $
 }
 
 function getPets() {
@@ -62,6 +71,8 @@ function appendPetData(response) {
         $tr.append('<td><button type="button" class="updatebtn">' + data.update + '</button></td>');
         $tr.append('<td><button type="button" class="deletebtn">' + data.delete + '</button></td>');
         $tr.append('<td><button type="button" class="checkbtn">' + data.checkStatus + '</button></td>');
+        $tr.data('pet', data[i]);
+        $tr.data('petid', data.id);
         $('#tBody').append($tr);
     }
 }
@@ -94,5 +105,27 @@ function refreshPets() {
 }
 
 function deleteData(){
-    console.log('things and stuff');
+    console.log(' delete things and stuff');
+    petid = $(this).data('id');
+    $.ajax({
+        method: 'DELETE',
+        url: '/pet/'+petid
+    }).done(function(response){
+        getPets();
+    }).fail(function(error){
+        console.log('Error deleting', error);
+    })
+    
+}//end delete
+
+function updateData() {
+    petid = $(this).data('id');
+    console.log('update!');
+    $.ajax({
+        method: 'PUT',
+        url: '/pet/' + petid,
+        data: petToSend
+    }).done(function (response) {
+        console.log('update!');
+    })
 }
