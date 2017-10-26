@@ -3,7 +3,6 @@ $(document).ready(main);
 function main() {
     console.log('JS/jQ working');
     getPets();
-    $('#sendPet').on('click', postPets);
     getOwner();
     $('#ownerForm').on('submit',newOwner);
     $('#tBody').on('click','.deletebtn', deleteData);
@@ -155,23 +154,28 @@ function deleteData(){
 }//end delete
 
 function updateData() {
-    $('#sendPet').remove();
-    $('#updateAddBtn').append('<button type="summit" class="btn-primary btn-sm" id="updatePet">Update Pet</button>');
+    $('#addPetBtn').remove();
+    var ownId  = $(this).closest('tr').data('owner_id');
+    var petId = $(this).closest('tr').data('petid');
+    console.log(ownId);
+    $('#updateAddBtn').append('<button type="summit" class="btn-primary btn-sm" id="updatePet" data-owner_id="' + ownId + '" data-id="' + petId + '">Update Pet</button>');
     pet = $(this).closest('tr').data('pet');
     $('#petName').val(pet.name);
     $('#breed').val(pet.breed);
     $('#color').val(pet.color);
 }
 
-function sendUpdated(updatedPet) {
+function sendUpdated() {
     petid = $(this).data('id');
-
+    var ownTest= $(this).data('owner_id');
+   console.log(petid);
+   console.log(ownTest);
     updatedPet = {
         name: $('#petName').val(),
         breed: $('#breed').val(),
         color: $('#color').val(),
+        owner_id: ownTest
     }
-console.log(petid);
     console.log(updatedPet);
     $.ajax({
         method: 'PUT',
