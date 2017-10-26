@@ -1,4 +1,13 @@
+.jumbotron {
+      background-image: url(http://images.nationalgeographic.com/wpf/media-live/photos/000/716/cache/canvasback-ducks-maryland_71644_990x742.jpg);
+      background-size:cover;
+      background-repeat:no-repeat;    
+}
+
+
 .panel-heading {
-    align-content: center;
-    color: rgb(7, 91, 120);
+    background-image: url();
+    background-size: cover;
+    text-align: center;
+    -webkit-text-fill-color: rgba(68, 68, 213, 0.762);
 }

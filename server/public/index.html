@@ -21,48 +21,46 @@
                 </div>
                 <div class="panel-body">
                     <form id="ownerForm">
-                        <label for="firstName" class="control-label">Name</label>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="firstName" placeholder="First" />
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" id="lastName" placeholder="Last" />
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn-primary btn-sm">Register</button>
-
-                            </div>
+                        <div class="form-group">
+                            <label for="firstName" class="control-label"><h3>Name</h3></label><br>
+                            <label for="firstName" class="control-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="First" />
+                        </div> 
+                        <div class="form-group">
+                            <label for="lastName" class="control-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last" />
+                            
+                        </div>
+                            <button type="submit" class="btn-primary btn-sm">Register</button>
+                        
                     </form>
-                    </div>
+                
                     <form id="form">
-                    <div class="row">
-                        <label for="ownerName" class="control-label">Pets</label>
-                    </div>
-                    <div class="row">
-                        <select name="owner" id="ownerSelect">
-                            <option value="test">Test</option>
-                        </select>
-                        <div class="col-md-3">
-                            Pet Name
-                            <input type="text" class="form-control" id="petName" placeholder="Pet Name" /> Breed
-                            <input type="text" class="form-control" id="breed" placeholder="Breed" />
-
+                        <div class="form-group">
+                            <label for="ownerName" class="control-label">
+                                <h3>Pets</h3>
+                            </label>
+                            <br>
+                            <label for="ownerName" class="control-label">Owner Name</label>
+                            <select name="owner" id="ownerSelect">
+                                <option value="test">Test</option>
+                            </select>
                         </div>
-
-                        <div class="col-md-3">
-                            Breed
+                    
+                        <div class="form-group">
+                            <label for="petName" class="control-label">Pet Name</label>
+                            <input type="text" class="form-control" id="petName" placeholder="Pet Name" />
+                            <label for="color" class="control-label">Color</label>
                             <input type="text" class="form-control" id="color" placeholder="Color" />
-
+                            <label for="breed" class="control-label">Breed</label>
+                            <input type="text" class="form-control" id="breed" placeholder="Breed" />
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <button type="submit" class="btn-primary btn-sm" id="addPetBtn">Add Pet</button>
-
-                            </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-primary btn-sm" id="addPetBtn">Add Pet</button>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="panel-body"></div>
                     <table class="table table-borthered table-striped table-hover">
                         <thead>
                             <tr>
@@ -87,7 +85,7 @@
 
 
                     </table>
-
+                </div>
 
 
                 </div>
