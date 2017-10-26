@@ -188,3 +188,11 @@ function sendUpdated() {
         console.log('Error on updating data');
     })
 }
+
+// CHECK IN FUNCTION
+
+
+
+// CHECK OUT FUNCTION
+
+
